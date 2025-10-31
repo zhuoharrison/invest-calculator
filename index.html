@@ -248,6 +248,23 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {/* 结果展示 */}
+                            <div className="rounded-2xl p-8 text-white mb-8" style={{ background: 'linear-gradient(135deg, #0075be 0%, #005587 100%)' }}>
+                                <div className="text-center mb-6">
+                                    <div className="flex items-center justify-center gap-2 mb-2">
+                                        <TrendingUp className="w-6 h-6" />
+                                        <h2 className="text-2xl font-bold">盈亏平衡点</h2>
+                                    </div>
+                                    <p className="opacity-90">你的投资至少需要达到</p>
+                                </div>
+                                <div className="text-center">
+                                    <div className="text-6xl font-bold mb-2">
+                                        {breakEvenReturn.toFixed(2)}%
+                                    </div>
+                                    <p className="text-lg opacity-90">税前投资回报率</p>
+                                </div>
+                            </div>
                             
                             {/* 税率详细展示 - 左右排列 */}
                             <div className="mb-8">
@@ -309,23 +326,6 @@
                                             {marginalTaxRate.toFixed(2)}% × 50% (仅50%计入应税)
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* 结果展示 */}
-                            <div className="rounded-2xl p-8 text-white mb-8" style={{ background: 'linear-gradient(135deg, #0075be 0%, #005587 100%)' }}>
-                                <div className="text-center mb-6">
-                                    <div className="flex items-center justify-center gap-2 mb-2">
-                                        <TrendingUp className="w-6 h-6" />
-                                        <h2 className="text-2xl font-bold">盈亏平衡点</h2>
-                                    </div>
-                                    <p className="opacity-90">你的投资至少需要达到</p>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-6xl font-bold mb-2">
-                                        {breakEvenReturn.toFixed(2)}%
-                                    </div>
-                                    <p className="text-lg opacity-90">税前投资回报率</p>
                                 </div>
                             </div>
 
