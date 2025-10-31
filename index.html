@@ -233,18 +233,18 @@
                                     <input
                                         type="range"
                                         min="0"
-                                        max="1000000"
+                                        max="500000"
                                         step="10000"
                                         value={annualIncome}
                                         onChange={(e) => setAnnualIncome(parseFloat(e.target.value))}
                                         className="w-full h-3 bg-blue-100 rounded-lg appearance-none cursor-pointer slider"
                                         style={{
-                                            background: `linear-gradient(to right, #0075be 0%, #0075be ${(annualIncome / 1000000) * 100}%, #dbeafe ${(annualIncome / 1000000) * 100}%, #dbeafe 100%)`
+                                            background: `linear-gradient(to right, #0075be 0%, #0075be ${(annualIncome / 500000) * 100}%, #dbeafe ${(annualIncome / 500000) * 100}%, #dbeafe 100%)`
                                         }}
                                     />
                                     <div className="flex justify-between text-sm text-gray-500 mt-2">
                                         <span>$0</span>
-                                        <span>$1M</span>
+                                        <span>$500K</span>
                                     </div>
                                 </div>
                             </div>
