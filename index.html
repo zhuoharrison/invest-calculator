@@ -80,7 +80,7 @@
             const [interestRate, setInterestRate] = useState(5);
             const [annualIncome, setAnnualIncome] = useState(200000);
             
-            // 计算边际税率 - 2025年安大略省多伦多市税率
+            // 计算边际税率 - 2025年安大略省多伦多市税率（含附加税）
             const calculateMarginalTaxRate = (income) => {
                 // 联邦税率 (2025)
                 let federalRate = 0;
@@ -96,21 +96,35 @@
                     federalRate = 33;
                 }
                 
-                // 安大略省税率 (2025)
-                let provincialRate = 0;
+                // 安大略省基本税率 (2025)
+                let baseProvincialRate = 0;
                 if (income <= 51446) {
-                    provincialRate = 5.05;
+                    baseProvincialRate = 5.05;
                 } else if (income <= 102894) {
-                    provincialRate = 9.15;
+                    baseProvincialRate = 9.15;
                 } else if (income <= 150000) {
-                    provincialRate = 11.16;
+                    baseProvincialRate = 11.16;
                 } else if (income <= 220000) {
-                    provincialRate = 12.16;
+                    baseProvincialRate = 12.16;
                 } else {
-                    provincialRate = 13.16;
+                    baseProvincialRate = 13.16;
                 }
                 
-                return federalRate + provincialRate;
+                // 安大略省附加税 (Surtax)
+                // 20%附加税适用于省税超过$5,315 (约$72,000收入)
+                // 额外36%附加税适用于省税超过$6,839 (约$91,000收入)
+                // 对于高收入者，总附加税为56% (20% + 36%)
+                let effectiveProvincialRate = baseProvincialRate;
+                
+                if (income > 91000) {
+                    // 高收入：基本税率 × 1.56 (包含56%附加税)
+                    effectiveProvincialRate = baseProvincialRate * 1.56;
+                } else if (income > 72000) {
+                    // 中高收入：基本税率 × 1.20 (包含20%附加税)
+                    effectiveProvincialRate = baseProvincialRate * 1.20;
+                }
+                
+                return federalRate + effectiveProvincialRate;
             };
             
             const marginalTaxRate = calculateMarginalTaxRate(annualIncome);
@@ -138,11 +152,20 @@
             };
 
             const getProvincialRate = () => {
-                if (annualIncome <= 51446) return '5.05';
-                if (annualIncome <= 102894) return '9.15';
-                if (annualIncome <= 150000) return '11.16';
-                if (annualIncome <= 220000) return '12.16';
-                return '13.16';
+                let baseRate = 0;
+                if (annualIncome <= 51446) baseRate = 5.05;
+                else if (annualIncome <= 102894) baseRate = 9.15;
+                else if (annualIncome <= 150000) baseRate = 11.16;
+                else if (annualIncome <= 220000) baseRate = 12.16;
+                else baseRate = 13.16;
+                
+                // 应用附加税
+                if (annualIncome > 91000) {
+                    return (baseRate * 1.56).toFixed(2);
+                } else if (annualIncome > 72000) {
+                    return (baseRate * 1.20).toFixed(2);
+                }
+                return baseRate.toFixed(2);
             };
 
             const getProvincialBracket = () => {
@@ -253,6 +276,8 @@
                                         </div>
                                         <div className="text-xs text-gray-600">
                                             {getProvincialBracket()}
+                                            {annualIncome > 91000 && <div className="mt-1 text-red-600">含56%附加税 (20%+36%)</div>}
+                                            {annualIncome > 72000 && annualIncome <= 91000 && <div className="mt-1 text-orange-600">含20%附加税</div>}
                                         </div>
                                     </div>
                                 </div>
@@ -369,8 +394,8 @@
 
                         {/* 页脚 */}
                         <div className="text-center mt-8 text-gray-500 text-sm">
-                            <p>基于安大略省多伦多市2025年税率，资本利得50%计入应税收入</p>
-                            <p className="mt-1">联邦税率 + 省税率 = 边际税率</p>
+                            <p>基于安大略省多伦多市2025年税率（含附加税），资本利得50%计入应税收入</p>
+                            <p className="mt-1">联邦税率 + 省税率（含附加税）= 边际税率（最高53.53%）</p>
                         </div>
                     </div>
                 </div>
