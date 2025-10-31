@@ -251,19 +251,45 @@
 
                             {/* 结果展示 */}
                             <div className="rounded-2xl p-8 text-white mb-8" style={{ background: 'linear-gradient(135deg, #0075be 0%, #005587 100%)' }}>
-                                <div className="text-center mb-6">
-                                    <div className="flex items-center justify-center gap-2 mb-2">
-                                        <TrendingUp className="w-6 h-6" />
-                                        <h2 className="text-2xl font-bold">盈亏平衡点</h2>
+                                {annualIncome < 30000 ? (
+                                    // 低收入警告
+                                    <div className="text-center">
+                                        <div className="flex items-center justify-center gap-2 mb-4">
+                                            <svg className="w-12 h-12 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                        </div>
+                                        <h2 className="text-2xl font-bold mb-3">⚠️ 收入过低</h2>
+                                        <p className="text-lg opacity-90 mb-4">
+                                            您的年收入低于 $30,000
+                                        </p>
+                                        <div className="bg-white/20 rounded-lg p-4 text-sm">
+                                            <p className="mb-2">由于收入较低，您可能无法充分利用借款利息抵税的优势：</p>
+                                            <ul className="text-left space-y-1 ml-4">
+                                                <li>• 应税收入不足以抵扣全部利息</li>
+                                                <li>• 实际税务优惠有限</li>
+                                                <li>• 建议提高收入至 $30K 以上再考虑借款投资</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <p className="opacity-90">你的投资至少需要达到</p>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-6xl font-bold mb-2">
-                                        {breakEvenReturn.toFixed(2)}%
-                                    </div>
-                                    <p className="text-lg opacity-90">税前投资回报率</p>
-                                </div>
+                                ) : (
+                                    // 正常显示盈亏平衡点
+                                    <>
+                                        <div className="text-center mb-6">
+                                            <div className="flex items-center justify-center gap-2 mb-2">
+                                                <TrendingUp className="w-6 h-6" />
+                                                <h2 className="text-2xl font-bold">盈亏平衡点</h2>
+                                            </div>
+                                            <p className="opacity-90">你的投资至少需要达到</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-6xl font-bold mb-2">
+                                                {breakEvenReturn.toFixed(2)}%
+                                            </div>
+                                            <p className="text-lg opacity-90">税前投资回报率</p>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                             
                             {/* 税率详细展示 - 左右排列 */}
