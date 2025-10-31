@@ -199,23 +199,23 @@
                                             <Percent className="w-5 h-5" style={{ color: '#0075be' }} />
                                             借款利率
                                         </label>
-                                        <span className="text-3xl font-bold" style={{ color: '#0075be' }}>{interestRate.toFixed(1)}%</span>
+                                        <span className="text-3xl font-bold" style={{ color: '#0075be' }}>{interestRate.toFixed(2)}%</span>
                                     </div>
                                     <input
                                         type="range"
                                         min="0"
-                                        max="15"
-                                        step="0.1"
+                                        max="10"
+                                        step="0.01"
                                         value={interestRate}
                                         onChange={(e) => setInterestRate(parseFloat(e.target.value))}
                                         className="w-full h-3 bg-blue-100 rounded-lg appearance-none cursor-pointer slider"
                                         style={{
-                                            background: `linear-gradient(to right, #0075be 0%, #0075be ${(interestRate / 15) * 100}%, #dbeafe ${(interestRate / 15) * 100}%, #dbeafe 100%)`
+                                            background: `linear-gradient(to right, #0075be 0%, #0075be ${(interestRate / 10) * 100}%, #dbeafe ${(interestRate / 10) * 100}%, #dbeafe 100%)`
                                         }}
                                     />
                                     <div className="flex justify-between text-sm text-gray-500 mt-2">
                                         <span>0%</span>
-                                        <span>15%</span>
+                                        <span>10%</span>
                                     </div>
                                 </div>
 
@@ -331,7 +331,7 @@
                                     <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border-l-4 border-purple-600">
                                         <div className="flex items-center justify-between mb-2">
                                             <span className="text-sm font-semibold text-gray-700">📊 边际税率</span>
-                                            <span className="text-2xl font-bold text-purple-700">
+                                            <span className="text-lg font-bold text-purple-700">
                                                 {marginalTaxRate.toFixed(2)}%
                                             </span>
                                         </div>
@@ -344,7 +344,7 @@
                                     <div className="bg-gradient-to-r from-green-50 to-emerald-100 rounded-lg p-4 border-l-4 border-green-600">
                                         <div className="flex items-center justify-between mb-2">
                                             <span className="text-sm font-semibold text-gray-700">💰 资本利得税率</span>
-                                            <span className="text-2xl font-bold text-green-700">
+                                            <span className="text-lg font-bold text-green-700">
                                                 {capitalGainsTaxRate.toFixed(2)}%
                                             </span>
                                         </div>
@@ -369,8 +369,8 @@
                                                 <p className="text-gray-600 mb-3 text-sm">因为利息可以抵税,政府帮你承担了一部分成本</p>
                                                 <div className="bg-white rounded-lg p-4">
                                                     <div className="font-mono text-xs space-y-1">
-                                                        <div className="text-gray-600">实际成本 = {interestRate.toFixed(1)}% × (1 - {marginalTaxRate.toFixed(2)}%)</div>
-                                                        <div className="text-gray-600">实际成本 = {interestRate.toFixed(1)}% × {(100 - marginalTaxRate).toFixed(2)}%</div>
+                                                        <div className="text-gray-600">实际成本 = {interestRate.toFixed(2)}% × (1 - {marginalTaxRate.toFixed(2)}%)</div>
+                                                        <div className="text-gray-600">实际成本 = {interestRate.toFixed(2)}% × {(100 - marginalTaxRate).toFixed(2)}%</div>
                                                         <div className="text-base font-bold" style={{ color: '#0075be' }}>= {afterTaxCost.toFixed(3)}%</div>
                                                     </div>
                                                 </div>
@@ -407,7 +407,7 @@
                                 <div>
                                     <h3 className="text-xl font-bold text-gray-800 mb-3">一句话总结</h3>
                                     <p className="text-gray-700 text-lg leading-relaxed">
-                                        年收入 ${(annualIncome / 1000).toFixed(0)}K，边际税率 {marginalTaxRate.toFixed(1)}%，{interestRate.toFixed(1)}% 的借款成本需要{' '}
+                                        年收入 ${(annualIncome / 1000).toFixed(0)}K，边际税率 {marginalTaxRate.toFixed(1)}%，{interestRate.toFixed(2)}% 的借款成本需要{' '}
                                         <span className="font-bold" style={{ color: '#0075be' }}>{breakEvenReturn.toFixed(2)}%</span>{' '}
                                         的投资回报才能打平。
                                         {breakEvenReturn < 3 && <span className="text-green-600"> 这个门槛相对较低！</span>}
